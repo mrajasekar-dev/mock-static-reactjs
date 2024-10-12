@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Accordion UI</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+        .accordion { background: #ffffff; border: 1px solid #ccc; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; transition: box-shadow 0.3s ease-in-out; }
+        .accordion h3 { background: #007BFF; color: #ffffff; padding: 15px 20px; margin: 0; cursor: pointer; font-size: 16px; transition: background 0.3s ease; }
+        .accordion h3:hover { background: #0056b3; }
+        .panel { padding: 15px 20px; display: none; background-color: #ffffff; }
+        .show { display: block; }
+        .info { color: #333; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const data = {
+            Quotes: [
+                {
+                    Id: "a00Qy00000MrvjRIAR",
+                    Name: "United Oil Refinery Generators Quote",
+                    Status__c: "Approved",
+                    Grand_Total__c: 8085.00,
+                    Quote_Valid_Until__c: "2024-11-30",
+                    Quote_Line_Items__r: {
+                        records: [
+                            {
+                                Name: "QLN-00002",
+                                Product__c: "GenWatt Diesel 1000kW",
+                                Quantity__c: 2,
+                                Unit_Price__c: 75000,
+                                Total_Price__c: 150000
+                            },
+                            {
+                                Name: "QLN-00003",
+                                Product__c: "GenWatt Propane 500kW",
+                                Quantity__c: 1,
+                                Unit_Price__c: 45000,
+                                Total_Price__c: 45000
+                            }
+                        ]
+                    }
+                }
+            ],
+            Opportunities: [
+                {
+                    Id: "006Qy000008X1BPIA0",
+                    Name: "United Oil Refinery Generators",
+                    StageName: "Proposal/Price Quote",
+                    Amount: 270000,
+                    CloseDate: "2024-09-20",
+                    Owner: {
+                        Name: "Rajasekar M"
+                    }
+                },
+                {
+                    Id: "006Qy000008X1BQIA0",
+                    Name: "United Oil SLA",
+                    StageName: "Closed Won",
+                    Amount: 120000,
+                    CloseDate: "2024-09-27",
+                    Owner: {
+                        Name: "Rajasekar M"
+                    }
+                }
+            ]
+        };
+
+        function Accordion({ title, details }) {
+            const [isOpen, setIsOpen] = React.useState(false);
+            return (
+                <div className="accordion">
+                    <h3 onClick={() => setIsOpen(!isOpen)}>{title}</h3>
+                    <div className={isOpen ? 'panel show' : 'panel'}>
+                        <ul className="info">
+                            {details.map((detail, idx) => (
+                                <li key={idx}>{detail}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div className="container">
+                    <div>
+                        {data.Quotes.map((quote, index) => (
+                            <Accordion key={index} title={quote.Name} details={[
+                                `Status: ${quote.Status__c}`,
+                                `Total: $${quote.Grand_Total__c.toFixed(2)}`,
+                                `Valid Until: ${quote.Quote_Valid_Until__c}`
+                            ]} />
+                        ))}
+                    </div>
+                    <div>
+                        {data.Opportunities.map((opp, index) => (
+                            <Accordion key={index} title={opp.Name} details={[
+                                `Stage: ${opp.StageName}`,
+                                `Amount: $${opp.Amount.toFixed(2)}`,
+                                `Close Date: ${opp.CloseDate}`,
+                                `Owner: ${opp.Owner.Name}`
+                            ]} />
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
