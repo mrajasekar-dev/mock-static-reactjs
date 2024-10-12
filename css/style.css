@@ -1,25 +1,31 @@
 /* Salesforce-like palette */
 :root {
-    --slds-blue: #1589EE;  /* Similar to Salesforce's blue */
+    --slds-blue: #1589EE;  /* Salesforce blue */
+    --slds-blue-light: #1997E3; /* Lighter blue for buttons */
     --slds-gray: #F4F6F9;  /* Background color similar to SLDS */
     --slds-text-color: #153643; /* Salesforce text color */
     --slds-border-color: #D9E1F2; /* Light border color for subtle distinction */
 }
 
 body {
-    font-family: 'Arial', sans-serif; /* Salesforce uses a proprietary font, but Arial is close */
+    font-family: 'Arial', sans-serif; /* Use a clean sans-serif font */
     background-color: var(--slds-gray);
     color: var(--slds-text-color);
     margin: 0;
     padding: 20px;
 }
 
+.container {
+    max-width: 1200px; /* Limit the width for better readability */
+    margin: auto;
+}
+
 .rounded-md {
-    border-radius: 0.25rem; /* Salesforce often uses subtle border-radius */
+    border-radius: 0.25rem; /* Subtle border-radius */
 }
 
 .shadow {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slightly more pronounced shadow */
 }
 
 .p-4 {
@@ -27,12 +33,12 @@ body {
 }
 
 .bg-blue-500 {
-    background-color: #1997E3; /* A lighter, softer blue */
-}
-.bg-blue-600 {
-    background-color: #1078AD; /* Slightly darker for active states or hover */
+    background-color: var(--slds-blue-light); /* A lighter, softer blue */
 }
 
+.bg-blue-600 {
+    background-color: var(--slds-blue); /* Darker for active states or hover */
+}
 
 .text-white {
     color: #ffffff;
@@ -43,7 +49,7 @@ body {
 }
 
 .bg-gray-200 {
-    background-color: #fafafa; /* Lighter for more contrast against text */
+    background-color: #f9f9f9; /* Lighter for more contrast against text */
 }
 
 .rounded-t-md {
@@ -78,24 +84,60 @@ body {
 }
 
 .table-minimal th, .table-minimal td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: 1px solid var(--slds-border-color);
+    padding: 12px;
     text-align: left;
 }
 
 .table-minimal th {
     background-color: #f4f4f4;
+    font-weight: bold;
+    color: var(--slds-text-color);
 }
 
+/* Button Styles */
 .button {
-    background-color: #1078AD; /* Matching button color */
+    background-color: var(--slds-blue); /* Matching button color */
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 10px 20px;
     margin: 5px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
 .button:hover {
-    background-color: #0D5C8A;
+    background-color: #0D5C8A; /* Darker shade on hover */
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0; /* Hidden by default */
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.modal.show {
+    visibility: visible; /* Show modal */
+    opacity: 1; /* Show modal */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for modal */
 }
