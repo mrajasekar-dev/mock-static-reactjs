@@ -1,15 +1,23 @@
 function SubAccordion({ title, content }) {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
-        <div className="sub-accordion">
-            <div className="sub-accordion-header" onClick={() => setIsOpen(!isOpen)}>{title}</div>
-            <div className={isOpen ? 'sub-accordion-content show' : 'sub-accordion-content'}>
-                <ul>
-                    {content.map(item => (
-                        <li key={item.Id}>{`${item.ProductName} - Quantity: ${item.Quantity}, Unit Price: $${item.UnitPrice}, Total Price: $${item.TotalPrice}`}</li>
-                    ))}
-                </ul>
+        <div className="rounded-md shadow-sm mt-4">
+            <div className={`p-4 bg-blue-500 text-white flex justify-between items-center cursor-pointer ${isOpen ? 'rounded-t-md' : 'rounded-md'}`}
+                onClick={() => setIsOpen(!isOpen)}>
+                {title}
+                <span>{isOpen ? '▼' : '▶'}</span>
             </div>
+            {isOpen && (
+                <div className="p-4 bg-white rounded-b-md">
+                    <ul>
+                        {content.map(item => (
+                            <li key={item.Id} className="py-1">
+                                {`${item.ProductName} - Quantity: ${item.Quantity}, Unit Price: $${item.UnitPrice.toLocaleString()}, Total Price: $${item.TotalPrice.toLocaleString()}`}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 }
@@ -17,21 +25,27 @@ function SubAccordion({ title, content }) {
 function Accordion({ title, quotes }) {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
-        <div className="accordion">
-            <div className="accordion-header" onClick={() => setIsOpen(!isOpen)}>{title}</div>
-            <div className={isOpen ? 'accordion-content show' : 'accordion-content'}>
-                {quotes.map(quote => (
-                    <SubAccordion key={quote.Id} title={quote.Name} content={quote.QuoteLineItems} />
-                ))}
+        <div className="rounded-md shadow mt-2">
+            <div className={`p-4 bg-blue-600 text-white cursor-pointer flex justify-between items-center ${isOpen ? 'rounded-t-md' : 'rounded-md'}`}
+                 onClick={() => setIsOpen(!isOpen)}>
+                {title}
+                <span>{isOpen ? '▼' : '▶'}</span>
             </div>
+            {isOpen && (
+                <div className="bg-gray-200 p-4 rounded-b-md">
+                    {quotes.map(quote => (
+                        <SubAccordion key={quote.Id} title={quote.Name} content={quote.QuoteLineItems} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
 
 function Account({ account }) {
     return (
-        <div>
-            <h2>{account.Name}</h2>
+        <div className="mt-5">
+            <h2 className="text-xl font-bold text-center">{account.Name}</h2>
             {account.Opportunities.map(opp => (
                 <Accordion key={opp.Id} title={opp.Name} quotes={opp.Quotes} />
             ))}
@@ -41,7 +55,7 @@ function Account({ account }) {
 
 function App() {
     return (
-        <div className="container">
+        <div className="container mx-auto px-4 py-5">
             {data.Accounts.map(account => (
                 <Account key={account.Id} account={account} />
             ))}

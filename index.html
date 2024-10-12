@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refined Accordion UI</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Enhanced Accordion UI</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .accordion-header, .sub-accordion-header {
+            transition: background-color 0.3s ease-in-out;
+        }
+        .accordion-header:hover, .sub-accordion-header:hover {
+            background-color: #0353a4; /* Slightly darker blue */
+        }
+    </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="bg-gray-100 text-gray-900 font-sans">
+    <div id="root" class="container mx-auto px-4 py-5"></div>
     
-    <!-- Load React and ReactDOM first -->
+    <!-- React and ReactDOM -->
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     
     <!-- Babel for in-browser JSX translation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Load your data and app scripts last, and set type to text/babel -->
+    <!-- Application Scripts -->
     <script src="js/data.js"></script>
     <script src="js/app.js" type="text/babel"></script>
 </body>
