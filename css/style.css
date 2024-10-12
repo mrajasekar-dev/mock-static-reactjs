@@ -27,9 +27,12 @@ body {
 }
 
 .bg-blue-500 {
-    background-color: var(--slds-blue);
-    border-bottom: 2px solid var(--slds-border-color); /* Subtle border distinction */
+    background-color: #1997E3; /* A lighter, softer blue */
 }
+.bg-blue-600 {
+    background-color: #1078AD; /* Slightly darker for active states or hover */
+}
+
 
 .text-white {
     color: #ffffff;
@@ -82,4 +85,17 @@ body {
 
 .table-minimal th {
     background-color: #f4f4f4;
+}
+
+.button {
+    background-color: #1078AD; /* Matching button color */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #0D5C8A;
 }

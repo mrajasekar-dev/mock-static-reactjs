@@ -9,20 +9,33 @@ function SubAccordion({ title, content }) {
             </div>
             {isOpen && (
                 <div className="p-4 bg-white rounded-b-md">
-                    <ul>
-                        {content.map(item => (
-                            <li key={item.Id} className="py-1">
-                                {`${item.ProductName} - Quantity: ${item.Quantity}, Unit Price: $${item.UnitPrice.toLocaleString()}, Total Price: $${item.TotalPrice.toLocaleString()}`}
-                            </li>
-                        ))}
-                    </ul>
+                    <table className="w-full text-sm text-left text-gray-500">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" className="py-3 px-6">Product Name</th>
+                                <th scope="col" className="py-3 px-6">Quantity</th>
+                                <th scope="col" className="py-3 px-6">Unit Price</th>
+                                <th scope="col" className="py-3 px-6">Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {content.map(item => (
+                                <tr key={item.Id} className="bg-white border-b">
+                                    <td className="py-4 px-6">{item.ProductName}</td>
+                                    <td className="py-4 px-6">{item.Quantity}</td>
+                                    <td className="py-4 px-6">${formatNumber(item.UnitPrice)}</td>
+                                    <td className="py-4 px-6">${formatNumber(item.TotalPrice)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>
     );
 }
 
-function Accordion({ title, quotes }) {
+function Accordion({ title, details, quotes }) {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
         <div className={`rounded-md shadow mt-2 ${isOpen ? '' : 'shadow'}`}>
@@ -33,8 +46,9 @@ function Accordion({ title, quotes }) {
             </div>
             {isOpen && (
                 <div className="bg-gray-200 p-4 rounded-b-md">
+                    <p><strong>Status:</strong> {details.Status}, <strong>Close Date:</strong> {details.CloseDate}</p>
                     {quotes.map(quote => (
-                        <SubAccordion key={quote.Id} title={quote.Name} content={quote.QuoteLineItems} />
+                        <SubAccordion key={quote.Id} title={`${quote.Name} - Total: $${formatNumber(quote.Total)}`} content={quote.QuoteLineItems} />
                     ))}
                 </div>
             )}
@@ -47,7 +61,7 @@ function Account({ account }) {
         <div className="mt-5">
             <h2 className="text-xl font-bold text-center">{account.Name}</h2>
             {account.Opportunities.map(opp => (
-                <Accordion key={opp.Id} title={opp.Name} quotes={opp.Quotes} />
+                <Accordion key={opp.Id} title={opp.Name} details={opp} quotes={opp.Quotes} />
             ))}
         </div>
     );
@@ -62,5 +76,11 @@ function App() {
         </div>
     );
 }
+
+function formatNumber(number) {
+    const rounded = Math.round(number * 100) / 100; // Ensuring the number has two decimal places
+    return '$' + rounded.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
