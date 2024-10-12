@@ -1,8 +1,8 @@
 function SubAccordion({ title, content }) {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
-        <div className="rounded-md shadow-sm mt-4">
-            <div className={`p-4 bg-blue-500 text-white flex justify-between items-center cursor-pointer ${isOpen ? 'rounded-t-md' : 'rounded-md'}`}
+        <div className={`rounded-md shadow-sm mt-4 ${isOpen ? '' : 'shadow'}`}>
+            <div className={`p-4 ${isOpen ? 'bg-blue-600' : 'bg-blue-500'} text-white flex justify-between items-center cursor-pointer ${isOpen ? 'rounded-t-md' : 'rounded-md'}`}
                 onClick={() => setIsOpen(!isOpen)}>
                 {title}
                 <span>{isOpen ? '▼' : '▶'}</span>
@@ -25,8 +25,8 @@ function SubAccordion({ title, content }) {
 function Accordion({ title, quotes }) {
     const [isOpen, setIsOpen] = React.useState(false);
     return (
-        <div className="rounded-md shadow mt-2">
-            <div className={`p-4 bg-blue-600 text-white cursor-pointer flex justify-between items-center ${isOpen ? 'rounded-t-md' : 'rounded-md'}`}
+        <div className={`rounded-md shadow mt-2 ${isOpen ? '' : 'shadow'}`}>
+            <div className={`p-4 ${isOpen ? 'bg-blue-600' : 'bg-blue-500'} text-white cursor-pointer flex justify-between items-center ${isOpen ? 'rounded-t-md' : 'rounded-md'}`}
                  onClick={() => setIsOpen(!isOpen)}>
                 {title}
                 <span>{isOpen ? '▼' : '▶'}</span>
