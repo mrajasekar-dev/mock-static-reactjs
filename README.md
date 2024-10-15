@@ -20,11 +20,6 @@ React is an excellent choice for building dynamic user interfaces due to its fle
 - **Efficient Data Handling**: Utilize Salesforce’s REST and Apex APIs for real-time data fetching and updates.
 - **Component Reusability**: Build reusable components that streamline development and maintenance processes.
 
-## Getting Started
-
-To set up your environment:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+## Screenshots
+Static React Component Within Salesforce<br>
+![Static React Component Within Salesforce](https://github.com/mrajasekar-dev/exp-comm/blob/main/screenshots/Static%20React%20Component%20Within%20Salesforce.png)
